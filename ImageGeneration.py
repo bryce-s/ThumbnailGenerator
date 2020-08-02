@@ -21,7 +21,10 @@ def clearOutputDir(outDir: str):
         exit(1)
 
 def chdir_to_script():
-    if os.getcwd() != os.path.dirname(__file__):
+    dirname: str = os.path.dirname(os.path.abspath(__file__))
+    cwd: str = os.getcwd()
+    if cwd != dirname:
+        print(f"dirname: {dirname} and cwd: {cwd}")
         os.chdir(os.path.dirname(__file__))
     print("script dir")
 
@@ -69,7 +72,10 @@ def create_image_of_size(image: object, sizePercentage: float, outdir: str, file
 
         sizeTag: str = ""
         if sizePercentage == largeSizePercentage:
-            sizeTag = "-l"
+            if sizePercentage == 1:
+                sizeTag = ""
+            else:
+                sizeTag = "-l"
         if sizePercentage ==  mediumSizePercentage:
             sizeTag = "-m"
         if sizePercentage == smallSizePercentage:
